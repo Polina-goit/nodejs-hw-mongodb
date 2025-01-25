@@ -11,6 +11,7 @@ export const createContactSchema = Joi.object({
   contactType: Joi.string().valid('work', 'home', 'personal').required(),
   email: Joi.string().email({ minDomainSegments: 3, maxDomainSegments: 3, tlds: { allow: ['com', 'net'] } }),
   isFavourite: Joi.boolean(),
+ 
 });
 
 export const updateContactSchema = Joi.object({
