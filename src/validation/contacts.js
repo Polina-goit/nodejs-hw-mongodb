@@ -1,28 +1,36 @@
 import Joi from 'joi';
 
 export const createContactSchema = Joi.object({
-    name: Joi.string().min(3).max(20).required().messages({
-        'string.base': 'Username should be a string',
-        'string.min': 'Username should have at least {#limit} characters',
-        'string.max': 'Username should have at most {#limit} characters',
-        'any.required': 'Username is required',
-    }),
+  name: Joi.string().min(3).max(20).required().messages({
+    'string.base': 'Username should be a string',
+    'string.min': 'Username should have at least {#limit} characters',
+    'string.max': 'Username should have at most {#limit} characters',
+    'any.required': 'Username is required',
+  }),
   phoneNumber: Joi.string().min(3).max(20).required(),
   contactType: Joi.string().valid('work', 'home', 'personal').required(),
-  email: Joi.string().email({ minDomainSegments: 3, maxDomainSegments: 3, tlds: { allow: ['com', 'net'] } }),
+  email: Joi.string().email({
+    minDomainSegments: 3,
+    maxDomainSegments: 3,
+    tlds: { allow: ['com', 'net'] },
+  }),
   isFavourite: Joi.boolean(),
- 
 });
 
 export const updateContactSchema = Joi.object({
-      name: Joi.string().min(3).max(20).messages({
-        'string.base': 'Username should be a string',
-        'string.min': 'Username should have at least {#limit} characters',
-        'string.max': 'Username should have at most {#limit} characters',
-        'any.required': 'Username is required',
-    }),
+  userId: Joi.string().length(24),
+  name: Joi.string().min(3).max(20).messages({
+    'string.base': 'Username should be a string',
+    'string.min': 'Username should have at least {#limit} characters',
+    'string.max': 'Username should have at most {#limit} characters',
+    'any.required': 'Username is required',
+  }),
   phoneNumber: Joi.string().min(3).max(20),
   contactType: Joi.string().valid('work', 'home', 'personal'),
-  email: Joi.string().email({ minDomainSegments: 3, maxDomainSegments: 3, tlds: { allow: ['com', 'net'] } }),
+  email: Joi.string().email({
+    minDomainSegments: 3,
+    maxDomainSegments: 3,
+    tlds: { allow: ['com', 'net'] },
+  }),
   isFavourite: Joi.boolean(),
 });
