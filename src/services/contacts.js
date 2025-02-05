@@ -12,19 +12,12 @@ export const getAllContacts = async ({
 }) => {
   const limit = perPage;
   const skip = (page - 1) * perPage;
+
   const contactsQuery = ContactsCollection.find({ userId });
-
-  if (filter.isFavourite !== undefined) {
-    contactsQuery.where('isFavourite').equals(filter.isFavourite);
-  }
-
-  if (filter.type) {
-    contactsQuery.where('contactType').equals(filter.type);
-  }
-
   const contactsCount = await ContactsCollection.find()
     .merge(contactsQuery)
     .countDocuments();
+
   const contacts = await contactsQuery
     .skip(skip)
     .limit(limit)
@@ -46,30 +39,39 @@ export const getContactById = async (contactId, userId) => {
   });
   return contact;
 };
+
 export const createContact = async (payload) => {
   const contact = await ContactsCollection.create(payload);
   return contact;
 };
-export const updateContact = async (contactId, payload, options = {}) => {
+
+export const deleteContact = async (contactId, userId) => {
+  const contact = await ContactsCollection.findOneAndDelete({
+    _id: contactId,
+    userId,
+  });
+
+  return contact;
+};
+
+export const updateContact = async (
+  contactIdAndUserId,
+  payload,
+  options = {},
+) => {
   const rawResult = await ContactsCollection.findOneAndUpdate(
-    { _id: contactId },
+    { ...contactIdAndUserId },
     payload,
     {
       new: true,
-      includeResultMetadata: true,
       ...options,
     },
   );
+
   if (!rawResult || !rawResult.value) return null;
+
   return {
     contact: rawResult.value,
     isNew: Boolean(rawResult?.lastErrorObject?.upserted),
   };
-};
-
-export const deleteContact = async (contactId) => {
-  const contact = await ContactsCollection.findOneAndDelete({
-    _id: contactId,
-  });
-  return contact;
 };
