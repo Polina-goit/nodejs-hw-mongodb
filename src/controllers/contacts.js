@@ -58,6 +58,7 @@ export const createContactController = async (req, res) => {
   if (!userId) {
     throw createHttpError(400, 'User is not authenticated');
   }
+  console.log(req.body);
   const contact = await createContact({ ...req.body, userId });
 
   res.status(201).json({
