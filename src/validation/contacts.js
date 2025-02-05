@@ -9,10 +9,11 @@ export const createContactSchema = Joi.object({
   }),
   phoneNumber: Joi.string().min(3).max(20).required(),
   contactType: Joi.string().valid('work', 'home', 'personal').required(),
-  email: Joi.string().email({
-    minDomainSegments: 3,
-    maxDomainSegments: 3,
-    tlds: { allow: ['com', 'net'] },
+  email: Joi.string().min(3).max(30).required().messages({
+    'string.base': 'Email must be a string!',
+    'string.min': 'Minimum number of characters in email is 3!',
+    'string.max': 'The maximum number of characters in an email is 20!',
+    'any.required': 'Email is required!',
   }),
   isFavourite: Joi.boolean(),
 });
@@ -27,10 +28,10 @@ export const updateContactSchema = Joi.object({
   }),
   phoneNumber: Joi.string().min(3).max(20),
   contactType: Joi.string().valid('work', 'home', 'personal'),
-  email: Joi.string().email({
-    minDomainSegments: 3,
-    maxDomainSegments: 3,
-    tlds: { allow: ['com', 'net'] },
+  email: Joi.string().min(3).max(30).messages({
+    'string.base': 'Email must be a string!',
+    'string.min': 'Minimum number of characters in email is 3!',
+    'string.max': 'The maximum number of characters in an email is 20!',
   }),
   isFavourite: Joi.boolean(),
 });
