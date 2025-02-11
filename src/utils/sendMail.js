@@ -10,8 +10,8 @@ const transporter = nodemailer.createTransport({
     user: getEnvVar(SMTP.SMTP_USER),
     pass: getEnvVar(SMTP.SMTP_PASSWORD),
   },
-//   logger: true, // Увімкніть логування
-//     debug: true,// Увімкніть режим відладки
+  logger: true, // Увімкніть логування
+    debug: true,// Увімкніть режим відладки
 });
 
 export const sendEmail = async (options) => {
