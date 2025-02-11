@@ -113,7 +113,7 @@ export const patchContactController = async (req, res, next) => {
   });
 
   if (!result) {
-    next(createHttpError(404, 'Contact not found'));
+    next(createHttpError(404, 'Contact not found!'));
     return;
   }
 
@@ -134,3 +134,4 @@ export const deleteContactController = async (req, res, next) => {
   }
   res.status(204).send();
 };
+
