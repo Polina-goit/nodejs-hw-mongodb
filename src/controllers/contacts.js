@@ -83,7 +83,7 @@ export const upsertContactController = async (req, res, next) => {
     photo: photoUrl,
   });
   if (!result) {
-    next(createHttpError(404, 'Contact not found'));
+    next(createHttpError(404, 'Contact not found!'));
     return;
   }
   const status = result.isNew ? 201 : 200;
