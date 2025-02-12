@@ -1,5 +1,6 @@
 import cloudinary from 'cloudinary';
 import fs from 'node:fs/promises';
+
 import { getEnvVar } from './getEnvVar.js';
 import { CLOUDINARY } from '../constants/index.js';
 
@@ -15,3 +16,4 @@ export const saveFileToCloudinary = async (file) => {
   await fs.unlink(file.path);
   return response.secure_url;
 };
+
